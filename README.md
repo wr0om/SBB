@@ -45,10 +45,9 @@ pip install -r requirements.txt
 
 A short demo showing how to:
 
-* Compute refusal rates for custom prompts
 * Define custom demographic categories and groups
-* Add negative, positive, and neutral subjects
-* Obtain answer frequencies and fairness metrics
+* Define negative, positive, and neutral subjects
+* Run and obtain answer frequencies and fairness metrics
 
 This notebook is the recommended entry point for understanding the pipeline.
 
