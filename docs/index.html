@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SBB — Silenced Bias Benchmark (AAAI 2026 Oral · AI Alignment Track)</title>
+  <meta name="description" content="Silenced Biases: The Dark Side LLMs Learned to Refuse — SBB uncovers fairness issues hidden by safety-aligned refusals using refusal activation steering." />
+
+  <meta property="og:title" content="SBB — Silenced Bias Benchmark (AAAI 2026 Oral · AI Alignment Track)" />
+  <meta property="og:description" content="Uncover biases hidden behind safety refusals using refusal activation steering." />
+
+  <style>
+    :root{
+      --bg0:#0b0f17;
+      --bg1:#0f1624;
+      --card:#111a2b;
+      --text:#e8eefc;
+      --muted:#a9b6d3;
+      --line:rgba(255,255,255,.10);
+      --brand:#7aa2ff;
+      --brand2:#b37aff;
+      --ok:#6ee7b7;
+      --shadow: 0 20px 70px rgba(0,0,0,.35);
+      --radius: 18px;
+      --max: 1040px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background:
+        radial-gradient(1200px 800px at 15% 10%, rgba(122,162,255,.20), transparent 55%),
+        radial-gradient(1000px 700px at 85% 20%, rgba(179,122,255,.18), transparent 55%),
+        radial-gradient(900px 700px at 50% 100%, rgba(110,231,183,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      line-height:1.5;
+    }
+    a{color:inherit; text-decoration:none}
+    a:hover{opacity:.95}
+    code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
+    .wrap{max-width:var(--max); margin:0 auto; padding:26px 18px 64px;}
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px; padding:10px 12px;
+      border:1px solid var(--line);
+      background:rgba(17,26,43,.45);
+      backdrop-filter: blur(10px);
+      border-radius:999px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      position: sticky; top: 14px; z-index: 20;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.2px;
+    }
+    .dot{
+      width:12px; height:12px; border-radius:50%;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      box-shadow: 0 0 0 6px rgba(122,162,255,.12);
+    }
+    .navlinks{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+    .pill{
+      padding:8px 12px; border-radius:999px;
+      border:1px solid var(--line);
+      color:var(--muted);
+      font-size:13px;
+      background:rgba(255,255,255,.03);
+    }
+    .pill:hover{color:var(--text); border-color:rgba(255,255,255,.20)}
+    .hero{margin-top:34px; display:grid; gap:18px}
+    .tagline{
+      display:inline-flex; align-items:center; gap:10px;
+      width:fit-content;
+      padding:8px 12px; border-radius:999px;
+      border:1px solid rgba(122,162,255,.25);
+      background:rgba(122,162,255,.08);
+      color: #d9e4ff;
+      font-weight:600;
+      box-shadow: 0 12px 35px rgba(0,0,0,.20);
+    }
+    .tagline .star{
+      width:18px; height:18px; border-radius:6px;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      display:grid; place-items:center;
+      color:#0b0f17; font-size:12px; font-weight:900;
+    }
+    h1{
+      margin:0;
+      font-size: clamp(28px, 4vw, 46px);
+      line-height:1.08;
+      letter-spacing:-.6px;
+    }
+    .sub{
+      color:var(--muted);
+      font-size: clamp(15px, 1.6vw, 18px);
+      max-width: 74ch;
+      margin-top:4px;
+    }
+    .cta{
+      display:flex; gap:10px; flex-wrap:wrap; margin-top:8px;
+    }
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:11px 14px;
+      border-radius: 14px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      color:var(--text);
+      font-weight:650;
+      box-shadow: 0 14px 40px rgba(0,0,0,.22);
+    }
+    .btn.primary{
+      border-color: rgba(122,162,255,.35);
+      background: linear-gradient(135deg, rgba(122,162,255,.22), rgba(179,122,255,.18));
+    }
+    .btn .icon{width:18px; height:18px; opacity:.9}
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:14px;
+      margin-top:26px;
+    }
+    .card{
+      border:1px solid var(--line);
+      background:rgba(17,26,43,.52);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:16px;
+    }
+    .kpi{grid-column: span 4;}
+    .kpi .big{
+      font-size:26px; font-weight:850; letter-spacing:-.4px;
+      margin:0 0 4px;
+    }
+    .kpi .small{color:var(--muted); margin:0; font-size:13px}
+    .twocol{
+      grid-column: span 12;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:14px;
+    }
+    .bullets{margin:10px 0 0; padding-left:18px; color:var(--text)}
+    .bullets li{margin:7px 0; color:var(--muted)}
+    .bullets b{color:var(--text); font-weight:750}
+    .demo{
+      grid-column: span 12;
+      padding:0;
+      overflow:hidden;
+    }
+    .demoHead{
+      padding:16px 16px 12px;
+      border-bottom:1px solid var(--line);
+      display:flex; align-items:flex-start; justify-content:space-between; gap:14px;
+    }
+    .demoHead .meta{color:var(--muted); font-size:13px; margin-top:2px; max-width: 70ch;}
+    .steps{
+      padding:14px 16px 16px;
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:12px;
+    }
+    .step{
+      grid-column: span 4;
+      border:1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255,255,255,.03);
+      padding:12px;
+    }
+    .step .t{font-weight:820; letter-spacing:-.2px}
+    .step .d{color:var(--muted); font-size:13px; margin-top:6px}
+    .snippet{
+      margin-top:10px;
+      padding:12px;
+      border-radius: 16px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.22);
+      color:#d6e1ff;
+      overflow:auto;
+      font-size:13px;
+      line-height:1.45;
+    }
+    .media{
+      grid-column: span 6;
+      padding:0;
+      overflow:hidden;
+    }
+    .media .cap{
+      padding:12px 14px;
+      border-top:1px solid var(--line);
+      color:var(--muted);
+      font-size:13px;
+    }
+    .media img{
+      width:100%;
+      height:auto;
+      display:block;
+      background: rgba(255,255,255,.02);
+    }
+    .foot{
+      margin-top:34px;
+      color:var(--muted);
+      font-size:13px;
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;
+      border-top:1px solid var(--line);
+      padding-top:16px;
+    }
+    .sep{opacity:.5}
+    @media (max-width: 860px){
+      .kpi{grid-column: span 12;}
+      .twocol{grid-template-columns: 1fr;}
+      .media{grid-column: span 12;}
+      .step{grid-column: span 12;}
+      .nav{position:static; border-radius: var(--radius);}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="nav">
+      <div class="brand">
+        <span class="dot"></span>
+        <span>SBB</span>
+      </div>
+      <div class="navlinks">
+        <a class="pill" href="#demo">Demo</a>
+        <a class="pill" href="#highlights">Highlights</a>
+        <a class="pill" href="#figures">Figures</a>
+        <a class="pill" href="#cite">Cite</a>
+      </div>
+    </div>
+
+    <header class="hero">
+      <div class="tagline">
+        <span class="star">★</span>
+        <span><b>AAAI 2026 Oral</b> · AI Alignment Track</span>
+      </div>
+
+      <h1>Silenced Biases: The Dark Side LLMs Learned to Refuse</h1>
+      <div class="sub">
+        Safety-aligned LLMs can look “fair” simply by <b>refusing</b> sensitive questions.
+        We introduce <b>silenced biases</b>—unfair preferences that remain in the model’s latent space,
+        masked by refusal behavior—and the <b>Silenced Bias Benchmark (SBB)</b> to uncover them via <b>refusal activation steering</b>.
+      </div>
+
+      <div class="cta">
+        <a class="btn primary" href="https://arxiv.org/abs/2511.03369" target="_blank" rel="noreferrer">
+          <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M8 7h10M8 11h10M8 15h6M6 3h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          Paper (arXiv)
+        </a>
+        <a class="btn" href="https://github.com/wr0om/SBB" target="_blank" rel="noreferrer">
+          <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.58 2 12.22c0 4.51 2.87 8.34 6.84 9.69.5.1.68-.22.68-.48l-.01-1.7c-2.78.62-3.37-1.1-3.37-1.1-.45-1.18-1.11-1.49-1.11-1.49-.9-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.9 1.56 2.36 1.11 2.94.85.09-.67.35-1.11.64-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.27 2.75 1.05.8-.23 1.66-.34 2.52-.34.86 0 1.72.12 2.52.34 1.91-1.32 2.75-1.05 2.75-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.96.68 1.94l-.01 2.87c0 .26.18.58.69.48A10.18 10.18 0 0 0 22 12.22C22 6.58 17.52 2 12 2Z" fill="currentColor"/></svg>
+          Code
+        </a>
+        <a class="btn" href="#demo">
+          <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M10 8.5v7l6-3.5-6-3.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" stroke="currentColor" stroke-width="1.6"/></svg>
+          Demo notebook
+        </a>
+      </div>
+    </header>
+
+    <div class="grid" id="highlights">
+      <div class="card kpi">
+        <p class="big">Silenced Bias</p>
+        <p class="small">Biases hidden behind safety-aligned refusals</p>
+      </div>
+      <div class="card kpi">
+        <p class="big">Refusal Steering</p>
+        <p class="small">Expose latent fairness via activation interventions</p>
+      </div>
+      <div class="card kpi">
+        <p class="big">Customizable</p>
+        <p class="small">Add your own groups, subjects, & models</p>
+      </div>
+
+      <div class="card twocol">
+        <div>
+          <h2 style="margin:0 0 10px; font-size:22px; letter-spacing:-.2px;">What SBB enables</h2>
+          <p style="margin:0; color:var(--muted);">
+            SBB is designed as a <b style="color:var(--text)">research tool</b>: you can define
+            <b style="color:var(--text)">new demographic groups</b>, specify
+            <b style="color:var(--text)">subjects</b> (topics/traits you want to test), and evaluate
+            <b style="color:var(--text)">any model</b> for fairness—especially when refusals would otherwise hide differences.
+          </p>
+          <ul class="bullets">
+            <li><b>Extend demographics:</b> add new groups or edit existing ones to match your setting.</li>
+            <li><b>Extend subjects:</b> test new domains (e.g., leadership, morality, competence, etc.).</li>
+            <li><b>Swap models:</b> run the same benchmark across different LLMs for comparison.</li>
+            <li><b>Measure bias:</b> quantify deviation from a uniform (“no preference”) baseline.</li>
+          </ul>
+        </div>
+        <div class="card" style="padding:14px; border-color: rgba(255,255,255,.12); background: rgba(255,255,255,.03);">
+          <div style="font-weight:800; letter-spacing:-.2px;">AAAI 2026 · Oral</div>
+          <div style="color:var(--muted); margin-top:6px; font-size:13px;">
+            AI Alignment Track<br/>
+            <span class="sep">·</span> Fairness & Safety Evaluation<br/>
+            <span class="sep">·</span> Hidden failure modes behind refusals
+          </div>
+          <div style="margin-top:12px; border-top:1px solid var(--line); padding-top:12px; color:var(--muted); font-size:13px;">
+            <b style="color:var(--text)">Paper:</b> arXiv:2511.03369<br/>
+            <b style="color:var(--text)">Repo:</b> wr0om/SBB
+          </div>
+        </div>
+      </div>
+
+      <!-- Demo (Notebook) -->
+      <div class="card demo" id="demo">
+        <div class="demoHead">
+          <div>
+            <div style="font-weight:850; letter-spacing:-.2px; font-size:18px;">Demo: <code>demo.ipynb</code></div>
+            <div class="meta">
+              Run the notebook, add your own <b style="color:var(--text)">demographic groups</b> and <b style="color:var(--text)">subjects</b>,
+              and test <b style="color:var(--text)">any model</b> for fairness—especially when safety refusals would otherwise mask differences.
+            </div>
+          </div>
+          <a class="pill" href="https://github.com/wr0om/SBB/blob/main/demo.ipynb" target="_blank" rel="noreferrer">
+            Open notebook ↗
+          </a>
+        </div>
+
+        <div class="steps">
+          <div class="step">
+            <div class="t">1) Define what you care about</div>
+            <div class="d">Edit the demographic groups and subjects to match your application domain.</div>
+          </div>
+          <div class="step">
+            <div class="t">2) Choose a model</div>
+            <div class="d">Point the notebook to the LLM you want to evaluate (local, API, or research checkpoints).</div>
+          </div>
+          <div class="step">
+            <div class="t">3) Run & inspect</div>
+            <div class="d">Generate queries, reduce refusals via steering, then measure deviation from a fair baseline.</div>
+          </div>
+
+          <pre class="snippet"><code># Demo flow (conceptual)
+# 1) customize groups + subjects
+demographic_groups = [
+  # add / edit groups here
+]
+subjects = [
+  # add / edit subjects here
+]
+
+# 2) select a model
+model = "your-llm"
+
+# 3) run SBB and analyze fairness
+results = run_sbb(model, demographic_groups, subjects)
+analyze(results)</code></pre>
+        </div>
+      </div>
+
+      <!-- Figures -->
+      <div class="card" id="figures" style="grid-column: span 12;">
+        <h2 style="margin:0 0 10px; font-size:22px; letter-spacing:-.2px;">Figures (short selection)</h2>
+        <p style="margin:0; color:var(--muted);">
+          Only two figures are shown here to keep the page focused:
+          (1) the method overview (refusal activation steering), and (2) why existing benchmarks can miss silenced biases.
+          Put images in <code>docs/assets/</code> and keep the filenames below.
+        </p>
+      </div>
+
+      <div class="card media">
+        <img src="assets/fig1.png" alt="Figure 1 — Refusal activation steering shifts representations from refusal to compliance." />
+        <div class="cap">
+          <b>Figure 1.</b> Refusal activation steering shifts model representations from a refusal subspace to a compliance subspace,
+          exposing biases that are otherwise hidden by safety-aligned refusals.
+        </div>
+      </div>
+
+      <div class="card media">
+        <img src="assets/fig2.png" alt="Figure 2 — SBB aligns more with refusal direction than prior bias benchmarks." />
+        <div class="cap">
+          <b>Figure 2.</b> SBB prompts align more strongly with the refusal direction than prior bias benchmarks—helping explain
+          why refusals can mask latent unfair preferences.
+        </div>
+      </div>
+
+      <!-- Citation -->
+      <div class="card" id="cite" style="grid-column: span 12;">
+        <h2 style="margin:0 0 10px; font-size:22px; letter-spacing:-.2px;">Citation</h2>
+        <p style="margin:0 0 12px; color:var(--muted);">If you use SBB in your work, please cite:</p>
+        <pre style="margin:0; padding:14px; border-radius:16px; border:1px solid var(--line); background: rgba(0,0,0,.22); overflow:auto; color:#d6e1ff;"><code>@article{himelstein2025silenced,
+  title   = {Silenced Biases: The Dark Side LLMs Learned to Refuse},
+  author  = {Himelstein, Rom and LeVi, Amit and Youngmann, Brit and Nemcovsky, Yaniv and Mendelson, Avi},
+  journal = {arXiv preprint arXiv:2511.03369},
+  year    = {2025}
+}</code></pre>
+      </div>
+    </div>
+
+    <footer class="foot">
+      <div>
+        <b style="color:var(--text)">SBB</b> · AAAI 2026 Oral (AI Alignment Track)
+        <span class="sep"> · </span>
+        <a href="https://arxiv.org/abs/2511.03369" target="_blank" rel="noreferrer">Paper</a>
+        <span class="sep"> · </span>
+        <a href="https://github.com/wr0om/SBB" target="_blank" rel="noreferrer">Code</a>
+        <span class="sep"> · </span>
+        <a href="https://github.com/wr0om/SBB/blob/main/demo.ipynb" target="_blank" rel="noreferrer">Demo notebook</a>
+      </div>
+      <div>© 2026 · Technion — Israel Institute of Technology</div>
+    </footer>
+  </div>
+</body>
+</html>
