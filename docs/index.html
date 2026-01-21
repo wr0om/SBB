@@ -126,28 +126,6 @@
     .step{grid-column: span 4; border:1px solid var(--line); border-radius: 16px; background: rgba(255,255,255,.03); padding:12px;}
     .step .t{font-weight:820; letter-spacing:-.2px}
     .step .d{color:var(--muted); font-size:13px; margin-top:6px}
-
-    /* ✅ Fix: code block is full-width, readable, never “cut off” */
-    .codeWrap{padding:0 16px 16px;}
-    .snippet{
-      width:100%;
-      margin:0;
-      padding:14px;
-      border-radius: 16px;
-      border:1px solid var(--line);
-      background: rgba(0,0,0,.22);
-      color:#d6e1ff;
-      overflow:auto;
-      font-size:13px;
-      line-height:1.55;
-      max-height: 360px;            /* scroll if very long */
-      -webkit-overflow-scrolling: touch;
-    }
-    .snippet code{display:block; min-width: 720px;} /* keeps indentation + prevents tiny wrap on desktop */
-
-    /* On small screens, allow wrap instead of forcing horizontal scroll */
-    @media (max-width: 760px){
-      .snippet code{min-width: 0; white-space: pre-wrap; word-break: break-word;}
     }
 
     /* Figures */
@@ -175,7 +153,6 @@
       <div class="navlinks">
         <a class="pill" href="#demo">Demo</a>
         <a class="pill" href="#highlights">Highlights</a>
-        <a class="pill" href="#figures">Figures</a>
         <a class="pill" href="#cite">Cite</a>
       </div>
     </div>
@@ -186,10 +163,22 @@
       <div class="sub">
         Safety-aligned LLMs can look “fair” simply by <b>refusing</b> sensitive questions.
         We introduce <b>silenced biases</b>—unfair preferences that remain in the model’s latent space,
-        masked by refusal behavior—and the <b>Silenced Bias Benchmark (SBB)</b> to uncover them via <b>refusal activation steering</b>.
+        masked by refusal behavior—and the <b>Silenced Bias Benchmark (SBB)</b> to uncover and quantify them via <b>refusal activation steering</b>.
       </div>
 
-      <div class="cta">
+      <!-- 🔥 Attention-grabbing figures -->
+      <div class="grid" style="margin-top:12px;">
+        <div class="card media" style="grid-column: span 6;">
+          <img src="assets/fig1.jpg" alt="Figure 1 — Refusal activation steering." />
+          <div class="cap"><b>Method.</b> Refusal activation steering exposes biases hidden by safety-aligned refusals.</div>
+        </div>
+        <div class="card media" style="grid-column: span 6;">
+          <img src="assets/table1.png" alt="Table 1 — Biased predictions and fairness deviations." />
+          <div class="cap"><b>Evidence.</b> Examples of biased predictions and fairness deviations on <b>Llama-3.1-8B-Instruct</b>.</div>
+        </div>
+      </div>
+
+      <div class="cta" style="margin-top:18px;">
         <a class="btn primary" href="https://arxiv.org/abs/2511.03369" target="_blank" rel="noreferrer">
           <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M8 7h10M8 11h10M8 15h6M6 3h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
           Paper (arXiv)
@@ -206,38 +195,26 @@
     </header>
 
     <div class="grid" id="highlights">
-      <div class="card kpi"><p class="big">Silenced Bias</p><p class="small">Biases hidden behind safety-aligned refusals</p></div>
-      <div class="card kpi"><p class="big">Refusal Steering</p><p class="small">Expose latent fairness via activation interventions</p></div>
+      <div class="card kpi"><p class="big">Silenced Bias</p><p class="small">Biases silenced by safety-aligned refusals</p></div>
+      <div class="card kpi"><p class="big">Refusal Steering</p><p class="small">Expose latent fairness via activation interventions to supress refusals</p></div>
       <div class="card kpi"><p class="big">Customizable</p><p class="small">Add your own groups, subjects, & models</p></div>
 
-      <div class="card twocol">
-        <div>
-          <h2 style="margin:0 0 10px; font-size:22px; letter-spacing:-.2px;">What SBB enables</h2>
-          <p style="margin:0; color:var(--muted);">
-            SBB is designed as a <b style="color:var(--text)">research tool</b>: you can define
-            <b style="color:var(--text)">new demographic groups</b>, specify
-            <b style="color:var(--text)">subjects</b> (topics/traits you want to test), and evaluate
-            <b style="color:var(--text)">any model</b> for fairness—especially when refusals would otherwise hide differences.
-          </p>
-          <ul class="bullets">
-            <li><b>Extend demographics:</b> add new groups or edit existing ones to match your setting.</li>
-            <li><b>Extend subjects:</b> test new domains (e.g., leadership, morality, competence, etc.).</li>
-            <li><b>Swap models:</b> run the same benchmark across different LLMs for comparison.</li>
-            <li><b>Measure bias:</b> quantify deviation from a uniform (“no preference”) baseline.</li>
-          </ul>
-        </div>
-        <div class="card" style="padding:14px; border-color: rgba(255,255,255,.12); background: rgba(255,255,255,.03);">
-          <div style="font-weight:800; letter-spacing:-.2px;">AAAI 2026 · Oral</div>
-          <div style="color:var(--muted); margin-top:6px; font-size:13px;">
-            AI Alignment Track<br/>
-            <span class="sep">·</span> Fairness & Safety Evaluation<br/>
-            <span class="sep">·</span> Hidden failure modes behind refusals
-          </div>
-          <div style="margin-top:12px; border-top:1px solid var(--line); padding-top:12px; color:var(--muted); font-size:13px;">
-            <b style="color:var(--text)">Paper:</b> arXiv:2511.03369<br/>
-            <b style="color:var(--text)">Repo:</b> wr0om/SBB
-          </div>
-        </div>
+      <div class="card" style="grid-column: span 12;">
+        <h2 style="margin:0 0 10px; font-size:22px; letter-spacing:-.2px;">What SBB enables</h2>
+        <p style="margin:0; color:var(--muted); max-width: 90ch;">
+          SBB is designed as a <b style="color:var(--text)">research tool</b>: you can define
+          <b style="color:var(--text)">new demographic groups</b>, specify
+          <b style="color:var(--text)">subjects</b> (topics or traits you want to test), and evaluate
+          <b style="color:var(--text)">any open-source model</b> for fairness—especially in regimes where safety-aligned refusals would otherwise hide meaningful differences.
+        </p>
+        <ul class="bullets" style="max-width: 90ch;">
+          <li><b>Extend demographics:</b> add new groups or edit existing ones to reflect your deployment or study context.</li>
+          <li><b>Extend subjects:</b> test additional domains (e.g., leadership, morality, competence, criminality, etc.).</li>
+          <li><b>Swap models:</b> evaluate different LLMs under identical conditions for controlled comparison.</li>
+          <li><b>Uncover silenced bias:</b> reduce refusals via activation steering to make latent preferences observable.</li>
+          <li><b>Quantify fairness:</b> measure deviation from a uniform (no-preference) baseline.</li>
+        </ul>
+      </div>
       </div>
 
       <!-- ✅ Demo (Notebook) with improved code block -->
@@ -247,7 +224,7 @@
             <div style="font-weight:850; letter-spacing:-.2px; font-size:18px;">Demo: <code>demo.ipynb</code></div>
             <div class="meta">
               Run the notebook, add your own <b style="color:var(--text)">demographic groups</b> and <b style="color:var(--text)">subjects</b>,
-              and test <b style="color:var(--text)">any model</b> for fairness—especially when safety refusals would otherwise mask differences.
+              and test <b style="color:var(--text)">any open-source model</b> for fairness—especially when safety refusals would otherwise mask differences.
             </div>
           </div>
           <a class="pill" href="https://github.com/wr0om/SBB/blob/main/demo.ipynb" target="_blank" rel="noreferrer">Open notebook ↗</a>
@@ -255,63 +232,20 @@
 
         <div class="steps">
           <div class="step"><div class="t">1) Define what you care about</div><div class="d">Edit the demographic groups and subjects to match your application domain.</div></div>
-          <div class="step"><div class="t">2) Choose a model</div><div class="d">Point the notebook to the LLM you want to evaluate (local, API, or research checkpoints).</div></div>
-          <div class="step"><div class="t">3) Run & inspect</div><div class="d">Generate queries, reduce refusals via steering, then measure deviation from a fair baseline.</div></div>
-        </div>
-
-        <div class="codeWrap">
-          <pre class="snippet"><code># Demo flow (conceptual)
-# 1) Customize groups + subjects
-
-# Add new demographic groups (or edit existing ones)
-demographic_groups = [
-  # {"name": "...", "values": ["...", "..."]},
-  # ...
-]
-
-# Add new subjects / traits / domains to test
-subjects = [
-  # "leadership",
-  # "morality",
-  # "competence",
-  # ...
-]
-
-# 2) Select a model (local / API / checkpoint)
-model = "your-llm"
-
-# 3) Run SBB and analyze fairness
-results = run_sbb(model, demographic_groups, subjects)
-analyze(results)</code></pre>
-        </div>
+          <div class="step"><div class="t">2) Choose a model</div><div class="d">Point the notebook to the open-source LLM you want to evaluate.</div></div>
+          <div class="step"><div class="t">3) Run & inspect</div><div class="d">Generate queries, reduce refusals via steering, observe answer frequencies, then measure deviation from a fair baseline.</div></div>
+        </div></div>
       </div>
-
-      <div class="card" id="figures" style="grid-column: span 12;">
-        <h2 style="margin:0 0 10px; font-size:22px; letter-spacing:-.2px;">Figures (short selection)</h2>
-        <p style="margin:0; color:var(--muted);">
-          Keep the page focused with two figures: (1) method overview (refusal activation steering), and (2) why existing benchmarks can miss silenced biases.
-          Put images in <code>docs/assets/</code> as <code>fig1.png</code> and <code>fig2.png</code>.
-        </p>
-      </div>
-
-      <div class="card media">
-        <img src="assets/fig1.png" alt="Figure 1 — Refusal activation steering shifts representations from refusal to compliance." />
-        <div class="cap"><b>Figure 1.</b> Refusal activation steering shifts model representations from a refusal subspace to a compliance subspace, exposing biases that are otherwise hidden by safety-aligned refusals.</div>
-      </div>
-
-      <div class="card media">
-        <img src="assets/fig2.png" alt="Figure 2 — SBB aligns more with refusal direction than prior bias benchmarks." />
-        <div class="cap"><b>Figure 2.</b> SBB prompts align more strongly with the refusal direction than prior bias benchmarks—helping explain why refusals can mask latent unfair preferences.</div>
       </div>
 
       <div class="card" id="cite" style="grid-column: span 12;">
         <h2 style="margin:0 0 10px; font-size:22px; letter-spacing:-.2px;">Citation</h2>
         <p style="margin:0 0 12px; color:var(--muted);">If you use SBB in your work, please cite:</p>
         <pre style="margin:0; padding:14px; border-radius:16px; border:1px solid var(--line); background: rgba(0,0,0,.22); overflow:auto; color:#d6e1ff;"><code>@article{himelstein2025silenced,
-  title   = {Silenced Biases: The Dark Side LLMs Learned to Refuse},
-  author  = {Himelstein, Rom and LeVi, Amit and Youngmann, Brit and Nemcovsky, Yaniv and Mendelson, Avi},
-  journal = {arXiv preprint arXiv:2511.03369},
-  year    = {2025}
+  title={Silenced Biases: The Dark Side LLMs Learned to Refuse},
+  author={Himelstein, Rom and LeVi, Amit and Youngmann, Brit and Nemcovsky, Yaniv and Mendelson, Avi},
+  journal={arXiv preprint arXiv:2511.03369},
+  year={2025}
 }</code></pre>
       </div>
     </div>
