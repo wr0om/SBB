@@ -24,15 +24,14 @@
     }
 
     *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
+    html,body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       color:var(--text);
+      /* ✅ FIXED: single cohesive background, no split regions */
       background:
-        radial-gradient(1200px 800px at 15% 10%, rgba(122,162,255,.20), transparent 55%),
-        radial-gradient(1000px 700px at 85% 20%, rgba(179,122,255,.18), transparent 55%),
-        radial-gradient(900px 700px at 50% 100%, rgba(110,231,183,.10), transparent 55%),
+        radial-gradient(1600px 1100px at 50% 20%, rgba(122,162,255,.18), transparent 68%),
+        radial-gradient(1600px 1100px at 50% 80%, rgba(179,122,255,.16), transparent 68%),
         linear-gradient(180deg, var(--bg0), var(--bg1));
       line-height:1.5;
     }
@@ -174,7 +173,7 @@
         </div>
         <div class="card media" style="grid-column: span 6;">
           <img src="assets/table1.png" alt="Table 1 — Biased predictions and fairness deviations." />
-          <div class="cap"><b>Evidence.</b> Examples of biased predictions and fairness deviations on <b>Llama-3.1-8B-Instruct</b>.</div>
+          <div class="cap"><b>Evidence.</b> Examples of biased predictions and fairness deviations.</div>
         </div>
       </div>
 
