@@ -13,17 +13,16 @@
     :root{
       --bg0:#0b0f17;
       --bg1:#0f1624;
-      --card:#111a2b;
       --text:#e8eefc;
       --muted:#a9b6d3;
       --line:rgba(255,255,255,.10);
       --brand:#7aa2ff;
       --brand2:#b37aff;
-      --ok:#6ee7b7;
       --shadow: 0 20px 70px rgba(0,0,0,.35);
       --radius: 18px;
       --max: 1040px;
     }
+
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
@@ -37,10 +36,14 @@
         linear-gradient(180deg, var(--bg0), var(--bg1));
       line-height:1.5;
     }
+
     a{color:inherit; text-decoration:none}
     a:hover{opacity:.95}
-    code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
+
+    code, pre{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
+
     .wrap{max-width:var(--max); margin:0 auto; padding:26px 18px 64px;}
+
     .nav{
       display:flex; align-items:center; justify-content:space-between;
       gap:14px; padding:10px 12px;
@@ -51,23 +54,12 @@
       box-shadow: 0 10px 30px rgba(0,0,0,.25);
       position: sticky; top: 14px; z-index: 20;
     }
-    .brand{
-      display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.2px;
-    }
-    .dot{
-      width:12px; height:12px; border-radius:50%;
-      background: linear-gradient(135deg, var(--brand), var(--brand2));
-      box-shadow: 0 0 0 6px rgba(122,162,255,.12);
-    }
+    .brand{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.2px;}
+    .dot{width:12px; height:12px; border-radius:50%; background: linear-gradient(135deg, var(--brand), var(--brand2)); box-shadow: 0 0 0 6px rgba(122,162,255,.12);}
     .navlinks{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
-    .pill{
-      padding:8px 12px; border-radius:999px;
-      border:1px solid var(--line);
-      color:var(--muted);
-      font-size:13px;
-      background:rgba(255,255,255,.03);
-    }
+    .pill{padding:8px 12px; border-radius:999px; border:1px solid var(--line); color:var(--muted); font-size:13px; background:rgba(255,255,255,.03);}
     .pill:hover{color:var(--text); border-color:rgba(255,255,255,.20)}
+
     .hero{margin-top:34px; display:grid; gap:18px}
     .tagline{
       display:inline-flex; align-items:center; gap:10px;
@@ -75,7 +67,7 @@
       padding:8px 12px; border-radius:999px;
       border:1px solid rgba(122,162,255,.25);
       background:rgba(122,162,255,.08);
-      color: #d9e4ff;
+      color:#d9e4ff;
       font-weight:600;
       box-shadow: 0 12px 35px rgba(0,0,0,.20);
     }
@@ -85,21 +77,11 @@
       display:grid; place-items:center;
       color:#0b0f17; font-size:12px; font-weight:900;
     }
-    h1{
-      margin:0;
-      font-size: clamp(28px, 4vw, 46px);
-      line-height:1.08;
-      letter-spacing:-.6px;
-    }
-    .sub{
-      color:var(--muted);
-      font-size: clamp(15px, 1.6vw, 18px);
-      max-width: 74ch;
-      margin-top:4px;
-    }
-    .cta{
-      display:flex; gap:10px; flex-wrap:wrap; margin-top:8px;
-    }
+
+    h1{margin:0; font-size: clamp(28px, 4vw, 46px); line-height:1.08; letter-spacing:-.6px;}
+    .sub{color:var(--muted); font-size: clamp(15px, 1.6vw, 18px); max-width: 74ch; margin-top:4px;}
+
+    .cta{display:flex; gap:10px; flex-wrap:wrap; margin-top:8px;}
     .btn{
       display:inline-flex; align-items:center; gap:10px;
       padding:11px 14px;
@@ -110,103 +92,72 @@
       font-weight:650;
       box-shadow: 0 14px 40px rgba(0,0,0,.22);
     }
-    .btn.primary{
-      border-color: rgba(122,162,255,.35);
-      background: linear-gradient(135deg, rgba(122,162,255,.22), rgba(179,122,255,.18));
-    }
+    .btn.primary{border-color: rgba(122,162,255,.35); background: linear-gradient(135deg, rgba(122,162,255,.22), rgba(179,122,255,.18));}
     .btn .icon{width:18px; height:18px; opacity:.9}
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap:14px;
-      margin-top:26px;
-    }
-    .card{
-      border:1px solid var(--line);
-      background:rgba(17,26,43,.52);
-      backdrop-filter: blur(10px);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding:16px;
-    }
+
+    .grid{display:grid; grid-template-columns: repeat(12, 1fr); gap:14px; margin-top:26px;}
+    .card{border:1px solid var(--line); background:rgba(17,26,43,.52); backdrop-filter: blur(10px); border-radius: var(--radius); box-shadow: var(--shadow); padding:16px;}
+
     .kpi{grid-column: span 4;}
-    .kpi .big{
-      font-size:26px; font-weight:850; letter-spacing:-.4px;
-      margin:0 0 4px;
-    }
+    .kpi .big{font-size:26px; font-weight:850; letter-spacing:-.4px; margin:0 0 4px;}
     .kpi .small{color:var(--muted); margin:0; font-size:13px}
-    .twocol{
-      grid-column: span 12;
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap:14px;
-    }
-    .bullets{margin:10px 0 0; padding-left:18px; color:var(--text)}
+
+    .twocol{grid-column: span 12; display:grid; grid-template-columns: 1.2fr .8fr; gap:14px;}
+
+    .bullets{margin:10px 0 0; padding-left:18px;}
     .bullets li{margin:7px 0; color:var(--muted)}
     .bullets b{color:var(--text); font-weight:750}
-    .demo{
-      grid-column: span 12;
-      padding:0;
-      overflow:hidden;
-    }
+
+    /* Demo */
+    .demo{grid-column: span 12; padding:0; overflow:hidden;}
     .demoHead{
       padding:16px 16px 12px;
       border-bottom:1px solid var(--line);
       display:flex; align-items:flex-start; justify-content:space-between; gap:14px;
     }
-    .demoHead .meta{color:var(--muted); font-size:13px; margin-top:2px; max-width: 70ch;}
+    .demoHead .meta{color:var(--muted); font-size:13px; margin-top:2px; max-width: 72ch;}
+
     .steps{
-      padding:14px 16px 16px;
+      padding:14px 16px 10px;
       display:grid;
       grid-template-columns: repeat(12, 1fr);
       gap:12px;
     }
-    .step{
-      grid-column: span 4;
-      border:1px solid var(--line);
-      border-radius: 16px;
-      background: rgba(255,255,255,.03);
-      padding:12px;
-    }
+    .step{grid-column: span 4; border:1px solid var(--line); border-radius: 16px; background: rgba(255,255,255,.03); padding:12px;}
     .step .t{font-weight:820; letter-spacing:-.2px}
     .step .d{color:var(--muted); font-size:13px; margin-top:6px}
+
+    /* ✅ Fix: code block is full-width, readable, never “cut off” */
+    .codeWrap{padding:0 16px 16px;}
     .snippet{
-      margin-top:10px;
-      padding:12px;
+      width:100%;
+      margin:0;
+      padding:14px;
       border-radius: 16px;
       border:1px solid var(--line);
       background: rgba(0,0,0,.22);
       color:#d6e1ff;
       overflow:auto;
       font-size:13px;
-      line-height:1.45;
+      line-height:1.55;
+      max-height: 360px;            /* scroll if very long */
+      -webkit-overflow-scrolling: touch;
     }
-    .media{
-      grid-column: span 6;
-      padding:0;
-      overflow:hidden;
+    .snippet code{display:block; min-width: 720px;} /* keeps indentation + prevents tiny wrap on desktop */
+
+    /* On small screens, allow wrap instead of forcing horizontal scroll */
+    @media (max-width: 760px){
+      .snippet code{min-width: 0; white-space: pre-wrap; word-break: break-word;}
     }
-    .media .cap{
-      padding:12px 14px;
-      border-top:1px solid var(--line);
-      color:var(--muted);
-      font-size:13px;
-    }
-    .media img{
-      width:100%;
-      height:auto;
-      display:block;
-      background: rgba(255,255,255,.02);
-    }
-    .foot{
-      margin-top:34px;
-      color:var(--muted);
-      font-size:13px;
-      display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;
-      border-top:1px solid var(--line);
-      padding-top:16px;
-    }
+
+    /* Figures */
+    .media{grid-column: span 6; padding:0; overflow:hidden;}
+    .media img{width:100%; height:auto; display:block; background: rgba(255,255,255,.02);}
+    .media .cap{padding:12px 14px; border-top:1px solid var(--line); color:var(--muted); font-size:13px;}
+
+    .foot{margin-top:34px; color:var(--muted); font-size:13px; display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between; border-top:1px solid var(--line); padding-top:16px;}
     .sep{opacity:.5}
+
     @media (max-width: 860px){
       .kpi{grid-column: span 12;}
       .twocol{grid-template-columns: 1fr;}
@@ -220,10 +171,7 @@
 <body>
   <div class="wrap">
     <div class="nav">
-      <div class="brand">
-        <span class="dot"></span>
-        <span>SBB</span>
-      </div>
+      <div class="brand"><span class="dot"></span><span>SBB</span></div>
       <div class="navlinks">
         <a class="pill" href="#demo">Demo</a>
         <a class="pill" href="#highlights">Highlights</a>
@@ -233,11 +181,7 @@
     </div>
 
     <header class="hero">
-      <div class="tagline">
-        <span class="star">★</span>
-        <span><b>AAAI 2026 Oral</b> · AI Alignment Track</span>
-      </div>
-
+      <div class="tagline"><span class="star">★</span><span><b>AAAI 2026 Oral</b> · AI Alignment Track</span></div>
       <h1>Silenced Biases: The Dark Side LLMs Learned to Refuse</h1>
       <div class="sub">
         Safety-aligned LLMs can look “fair” simply by <b>refusing</b> sensitive questions.
@@ -262,18 +206,9 @@
     </header>
 
     <div class="grid" id="highlights">
-      <div class="card kpi">
-        <p class="big">Silenced Bias</p>
-        <p class="small">Biases hidden behind safety-aligned refusals</p>
-      </div>
-      <div class="card kpi">
-        <p class="big">Refusal Steering</p>
-        <p class="small">Expose latent fairness via activation interventions</p>
-      </div>
-      <div class="card kpi">
-        <p class="big">Customizable</p>
-        <p class="small">Add your own groups, subjects, & models</p>
-      </div>
+      <div class="card kpi"><p class="big">Silenced Bias</p><p class="small">Biases hidden behind safety-aligned refusals</p></div>
+      <div class="card kpi"><p class="big">Refusal Steering</p><p class="small">Expose latent fairness via activation interventions</p></div>
+      <div class="card kpi"><p class="big">Customizable</p><p class="small">Add your own groups, subjects, & models</p></div>
 
       <div class="card twocol">
         <div>
@@ -305,7 +240,7 @@
         </div>
       </div>
 
-      <!-- Demo (Notebook) -->
+      <!-- ✅ Demo (Notebook) with improved code block -->
       <div class="card demo" id="demo">
         <div class="demoHead">
           <div>
@@ -315,70 +250,60 @@
               and test <b style="color:var(--text)">any model</b> for fairness—especially when safety refusals would otherwise mask differences.
             </div>
           </div>
-          <a class="pill" href="https://github.com/wr0om/SBB/blob/main/demo.ipynb" target="_blank" rel="noreferrer">
-            Open notebook ↗
-          </a>
+          <a class="pill" href="https://github.com/wr0om/SBB/blob/main/demo.ipynb" target="_blank" rel="noreferrer">Open notebook ↗</a>
         </div>
 
         <div class="steps">
-          <div class="step">
-            <div class="t">1) Define what you care about</div>
-            <div class="d">Edit the demographic groups and subjects to match your application domain.</div>
-          </div>
-          <div class="step">
-            <div class="t">2) Choose a model</div>
-            <div class="d">Point the notebook to the LLM you want to evaluate (local, API, or research checkpoints).</div>
-          </div>
-          <div class="step">
-            <div class="t">3) Run & inspect</div>
-            <div class="d">Generate queries, reduce refusals via steering, then measure deviation from a fair baseline.</div>
-          </div>
+          <div class="step"><div class="t">1) Define what you care about</div><div class="d">Edit the demographic groups and subjects to match your application domain.</div></div>
+          <div class="step"><div class="t">2) Choose a model</div><div class="d">Point the notebook to the LLM you want to evaluate (local, API, or research checkpoints).</div></div>
+          <div class="step"><div class="t">3) Run & inspect</div><div class="d">Generate queries, reduce refusals via steering, then measure deviation from a fair baseline.</div></div>
+        </div>
 
+        <div class="codeWrap">
           <pre class="snippet"><code># Demo flow (conceptual)
-# 1) customize groups + subjects
+# 1) Customize groups + subjects
+
+# Add new demographic groups (or edit existing ones)
 demographic_groups = [
-  # add / edit groups here
-]
-subjects = [
-  # add / edit subjects here
+  # {"name": "...", "values": ["...", "..."]},
+  # ...
 ]
 
-# 2) select a model
+# Add new subjects / traits / domains to test
+subjects = [
+  # "leadership",
+  # "morality",
+  # "competence",
+  # ...
+]
+
+# 2) Select a model (local / API / checkpoint)
 model = "your-llm"
 
-# 3) run SBB and analyze fairness
+# 3) Run SBB and analyze fairness
 results = run_sbb(model, demographic_groups, subjects)
 analyze(results)</code></pre>
         </div>
       </div>
 
-      <!-- Figures -->
       <div class="card" id="figures" style="grid-column: span 12;">
         <h2 style="margin:0 0 10px; font-size:22px; letter-spacing:-.2px;">Figures (short selection)</h2>
         <p style="margin:0; color:var(--muted);">
-          Only two figures are shown here to keep the page focused:
-          (1) the method overview (refusal activation steering), and (2) why existing benchmarks can miss silenced biases.
-          Put images in <code>docs/assets/</code> and keep the filenames below.
+          Keep the page focused with two figures: (1) method overview (refusal activation steering), and (2) why existing benchmarks can miss silenced biases.
+          Put images in <code>docs/assets/</code> as <code>fig1.png</code> and <code>fig2.png</code>.
         </p>
       </div>
 
       <div class="card media">
         <img src="assets/fig1.png" alt="Figure 1 — Refusal activation steering shifts representations from refusal to compliance." />
-        <div class="cap">
-          <b>Figure 1.</b> Refusal activation steering shifts model representations from a refusal subspace to a compliance subspace,
-          exposing biases that are otherwise hidden by safety-aligned refusals.
-        </div>
+        <div class="cap"><b>Figure 1.</b> Refusal activation steering shifts model representations from a refusal subspace to a compliance subspace, exposing biases that are otherwise hidden by safety-aligned refusals.</div>
       </div>
 
       <div class="card media">
         <img src="assets/fig2.png" alt="Figure 2 — SBB aligns more with refusal direction than prior bias benchmarks." />
-        <div class="cap">
-          <b>Figure 2.</b> SBB prompts align more strongly with the refusal direction than prior bias benchmarks—helping explain
-          why refusals can mask latent unfair preferences.
-        </div>
+        <div class="cap"><b>Figure 2.</b> SBB prompts align more strongly with the refusal direction than prior bias benchmarks—helping explain why refusals can mask latent unfair preferences.</div>
       </div>
 
-      <!-- Citation -->
       <div class="card" id="cite" style="grid-column: span 12;">
         <h2 style="margin:0 0 10px; font-size:22px; letter-spacing:-.2px;">Citation</h2>
         <p style="margin:0 0 12px; color:var(--muted);">If you use SBB in your work, please cite:</p>
