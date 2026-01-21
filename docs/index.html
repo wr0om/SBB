@@ -80,6 +80,30 @@
     h1{margin:0; font-size: clamp(28px, 4vw, 46px); line-height:1.08; letter-spacing:-.6px;}
     .sub{color:var(--muted); font-size: clamp(15px, 1.6vw, 18px); max-width: 74ch; margin-top:4px;}
 
+    /* Authors styling */
+    .authors{
+      margin-top:10px;
+      text-align:center;
+      font-size:15px;
+      color:var(--muted);
+    }
+    .authors a{
+      font-weight:600;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .authors a:hover{
+      text-decoration: underline;
+    }
+    .authors .meta{
+      display:block;
+      margin-top:4px;
+      font-size:13px;
+      color:var(--muted);
+    }
+
     .cta{display:flex; gap:10px; flex-wrap:wrap; margin-top:8px;}
     .btn{
       display:inline-flex; align-items:center; gap:10px;
@@ -159,9 +183,14 @@
     <header class="hero">
       <div class="tagline"><span class="star">★</span><span><b>AAAI 2026 Oral</b> · AI Alignment Track</span></div>
       <h1>Silenced Biases: The Dark Side LLMs Learned to Refuse</h1>
-      <div class="authors" style="margin-top:6px; font-size:15px; color:var(--muted);">
-        Rom Himelstein* · Amit LeVi* · Brit Youngmann · Yaniv Nemcovsky · Avi Mendelson<br/>
-        <span style="font-size:13px;">* Equal contribution<br/>Technion — Israel Institute of Technology</span>
+      <div class="authors">
+        <a href="https://scholar.google.com/citations?user=QhRpd7MAAAAJ&hl=en" target="_blank" rel="noreferrer">Rom Himelstein*</a> ·
+        <a href="https://scholar.google.com/citations?hl=en&user=T3RWi_cAAAAJ" target="_blank" rel="noreferrer">Amit LeVi*</a> ·
+        <a href="https://scholar.google.co.uk/citations?hl=en&user=we97sTwAAAAJ" target="_blank" rel="noreferrer">Brit Youngmann</a> ·
+        <a href="https://scholar.google.com/citations?hl=en&user=Tzi_svcAAAAJ" target="_blank" rel="noreferrer">Yaniv Nemcovsky</a> ·
+        <a href="https://scholar.google.com/citations?hl=en&user=PiREobkAAAAJ" target="_blank" rel="noreferrer">Avi Mendelson</a>
+        <span class="meta">* Equal contribution</span>
+        <span class="meta">Technion — Israel Institute of Technology</span>
       </div>
       <div class="sub">
         Safety-aligned LLMs can look “fair” simply by <b>refusing</b> sensitive questions.
